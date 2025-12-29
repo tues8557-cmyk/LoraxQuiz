@@ -150,26 +150,26 @@
 <script>
     // 질문 데이터 (동일함)
     const questions = [
-        { qEn: "What is the name of the town?", qKo: "마을의 이름은 무엇인가요?", options: ["Thneedville", "Treeville", "Once-ler Town", "Lorax City"], answer: "Thneedville" },
-        { qEn: "Who 'speaks for the trees'?", qKo: "누가 '나무들을 대변'하나요?", options: ["The Lorax", "Ted", "The Once-ler", "Mr. O'Hare"], answer: "The Lorax" },
-        { qEn: "What are the trees made of in the town?", qKo: "마을의 나무들은 무엇으로 만들어졌나요?", options: ["Plastic", "Wood", "Metal", "Glass"], answer: "Plastic" },
-        { qEn: "Who is the villain selling fresh air?", qKo: "공기를 파는 악당은 누구인가요?", options: ["Aloysius O'Hare", "The Once-ler", "Ted", "Grammy Norma"], answer: "Aloysius O'Hare" },
-        { qEn: "What is the name of the colorful trees?", qKo: "알록달록한 나무들의 이름은?", options: ["Truffula Trees", "Marshmallow Trees", "O'Hare Trees", "Cotton Trees"], answer: "Truffula Trees" },
-        { qEn: "What did the Once-ler invent?", qKo: "원슬러가 발명한 것은?", options: ["A Thneed", "A Car", "A Tree", "A Drink"], answer: "A Thneed" },
-        { qEn: "What is the Lorax's color?", qKo: "로렉스의 색깔은?", options: ["Orange", "Yellow", "Pink", "Green"], answer: "Orange" },
-        { qEn: "What color are the Truffula trees?", qKo: "트러플라 나무의 색깔은?", options: ["Many colors", "Only Pink", "Only Green", "Blue"], answer: "Many colors" },
-        { qEn: "Where does the Once-ler live?", qKo: "원슬러는 어디에 사나요?", options: ["Outside of town", "In a bank", "Underground", "In the city"], answer: "Outside of town" },
-        { qEn: "What does Ted want to find for Audrey?", qKo: "테드가 오드리를 위해 찾고 싶은 것은?", options: ["A real tree", "A Thneed", "A ring", "Fresh air"], answer: "A real tree" },
-        { qEn: "What animal lives in the water?", qKo: "물속에 사는 노래하는 물고기는?", options: ["Humming-Fish", "Swomee-Swans", "Bar-ba-loots", "Goldfish"], answer: "Humming-Fish" },
-        { qEn: "What do Bar-ba-loots eat?", qKo: "바바루트들은 무엇을 먹나요?", options: ["Truffula Fruits", "Marshmallows", "Fish", "Thneeds"], answer: "Truffula Fruits" },
-        { qEn: "What is the name of Ted's grandmother?", qKo: "테드의 할머니 이름은?", options: ["Grammy Norma", "Aunt Grizelda", "Wiggins", "Nana"], answer: "Grammy Norma" },
-        { qEn: "What did the Lorax leave behind?", qKo: "로렉스가 떠나며 남긴 단어는?", options: ["UNLESS", "STOP", "TREES", "SORRY"], answer: "UNLESS" },
-        { qEn: "How much did the story cost?", qKo: "이야기를 듣기 위한 비용은?", options: ["15 cents, nail, snail", "10 dollars", "A Thneed", "Nothing"], answer: "15 cents, nail, snail" },
-        { qEn: "What does 'UNLESS' mean?", qKo: "'UNLESS'의 의미는?", options: ["Someone must care", "It's too late", "Keep cutting", "Don't cry"], answer: "Someone must care" },
-        { qEn: "Who helps Ted escape the town?", qKo: "테드의 탈출을 돕는 가족은?", options: ["Grammy Norma", "His Mother", "His Sister", "His Father"], answer: "Grammy Norma" },
-        { qEn: "What did Ted plant at the end?", qKo: "마지막에 테드가 심은 것은?", options: ["The last seed", "A plastic tree", "A flower", "A Thneed"], answer: "The last seed" },
-        { qEn: "Who returns at the very end?", qKo: "마지막에 다시 돌아온 이는?", options: ["The Lorax", "O'Hare", "Ted's Dad", "Audrey"], answer: "The Lorax" },
-        { qEn: "Is the air in Thneedville free?", qKo: "스니드빌의 공기는 무료인가요?", options: ["No, it's paid", "Yes, it's free", "It's natural", "No air exists"], answer: "No, it's paid" }
+        { qEn: "What is Ted's last name?", qKo: "테드의 성은 무엇인가요?", options: ["Wiggins", "O'Hare", "Once-ler", "Lorax"], answer: "Wiggins" },
+        { qEn: "What is the slogan of O'Hare Air?", qKo: "오헤어 공기 회사의 슬로건은?", options: ["Fresh air in a can", "Trees for everyone", "Cheap and clean", "Nature is best"], answer: "Fresh air in a can" },
+        { qEn: "What does the Once-ler wear on his hands?", qKo: "원슬러가 손에 끼고 있는 것은?", options: ["Long green gloves", "Red mittens", "White rings", "Nothing"], answer: "Long green gloves" },
+        { qEn: "What instrument does the Once-ler play?", qKo: "원슬러가 연주하는 악기는?", options: ["Guitar", "Piano", "Flute", "Drums"], answer: "Guitar" },
+        { qEn: "What is the name of the small Bar-ba-loot?", qKo: "작은 바바루트 곰의 이름은?", options: ["Pipsqueak", "Barnaby", "Ted", "Silas"], answer: "Pipsqueak" },
+        { qEn: "What is the 'Super-Axe-Hacker'?", qKo: "슈퍼 도끼 해커는 무엇인가요?", options: ["A machine to cut trees", "A computer virus", "A secret weapon", "A new car"], answer: "A machine to cut trees" },
+        { qEn: "Why does Mr. O'Hare hate trees?", qKo: "오헤어 씨가 나무를 싫어하는 이유는?", options: ["They make free air", "They are too tall", "They are scary", "They attract bears"], answer: "They make free air" },
+        { qEn: "What does Ted use to break the ground?", qKo: "테드가 도시 바닥을 부수기 위해 사용한 것은?", options: ["An earthmover", "A hammer", "A shovel", "A rock"], answer: "An earthmover" },
+        { qEn: "What is the 'Lerkim'?", qKo: "원슬러가 사는 건물의 이름은?", options: ["The Once-ler's house", "The city hall", "A factory", "A tree house"], answer: "The Once-ler's house" },
+        { qEn: "What does Audrey paint in her backyard?", qKo: "오드리가 뒷마당 벽에 그린 것은?", options: ["Truffula trees", "The Lorax", "Ted's face", "The sun"], answer: "Truffula trees" },
+        { qEn: "What did the Once-ler use to bait the Lorax?", qKo: "원슬러가 로렉스를 유인할 때 쓴 음식은?", options: ["Marshmallows", "Apples", "Honey", "Candy"], answer: "Marshmallows" },
+        { qEn: "What color is the sky in Thneedville?", qKo: "처음 보여지는 스니드빌의 하늘은?", options: ["Artificial blue", "Clear grey", "Sunset orange", "Always black"], answer: "Artificial blue" },
+        { qEn: "Who tells Ted where to find the Once-ler?", qKo: "원슬러의 위치를 알려준 사람은?", options: ["Grammy Norma", "His Mom", "Audrey", "O'Hare"], answer: "Grammy Norma" },
+        { qEn: "What is a Thneed described as?", qKo: "스니드는 어떻게 묘사되나요?", options: ["A thing everyone needs", "A luxury item", "A soft blanket", "A winter hat"], answer: "A thing everyone needs" },
+        { qEn: "How does Ted escape the city?", qKo: "테드는 어떻게 도시를 탈출하나요?", options: ["A secret tunnel", "A flying car", "A big jump", "Walking normally"], answer: "A secret tunnel" },
+        { qEn: "What are the singing fish called?", qKo: "노래하는 물고기의 이름은?", options: ["Humming-Fish", "Rock-Fish", "Jazz-Fish", "Water-Birds"], answer: "Humming-Fish" },
+        { qEn: "What did the Lorax arrive in?", qKo: "로렉스는 무엇과 함께 나타났나요?", options: ["A thundercloud", "A golden box", "A giant seed", "A rainbow"], answer: "A thundercloud" },
+        { qEn: "Where did the Lorax go at the end?", qKo: "로렉스는 마지막에 어디로 갔나요?", options: ["Up into the sky", "Under the ground", "To another city", "In a bottle"], answer: "Up into the sky" },
+        { qEn: "What does Ted plant in the town center?", qKo: "테드가 마을 한복판에 심은 것은?", options: ["The last seed", "A plastic flag", "A Thneed", "A sign"], answer: "The last seed" },
+        { qEn: "What happens to O'Hare at the end?", qKo: "마지막에 오헤어 씨는 어떻게 되나요?", options: ["Kicked out of town", "Becomes king", "Plants a tree", "Disappears"], answer: "Kicked out of town" }
     ];
 
     let currentIdx = 0;
