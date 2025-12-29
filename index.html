@@ -5,92 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Lorax Escape Room - Global Ranking</title>
     
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    <script type="module">
+        // 1. 필요한 기능들을 명확하게 import 합니다.
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            getDocs, 
+            query, 
+            orderBy, 
+            limit 
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDZ840nxSnRHJRfRYA4jCUZWaofhmEb8-Q",
-    authDomain: "loraxquiz.firebaseapp.com",
-    projectId: "loraxquiz",
-    storageBucket: "loraxquiz.firebasestorage.app",
-    messagingSenderId: "447106004390",
-    appId: "1:447106004390:web:963e9819ef81d642d84b67",
-    measurementId: "G-6HH0GZQNE6"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-
-
-        // 점수 저장 함수
-        window.saveScore = async (name, time) => {
-            try {
-                await addDoc(collection(db, "scores"), {
-                    name: name,
-                    time: time,
-                    date: new Date()
-                });
-            } catch (e) { console.error("Error saving score: ", e); }
+        // 2. Firebase 설정 (작성하신 정보를 그대로 사용하세요)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZ840nxSnRHJRfRYA4jCUZWaofhmEb8-Q",
+            authDomain: "loraxquiz.firebaseapp.com",
+            projectId: "loraxquiz",
+            storageBucket: "loraxquiz.firebasestorage.app",
+            messagingSenderId: "447106004390",
+            appId: "1:447106004390:web:963e9819ef81d642d84b67",
+            measurementId: "G-6HH0GZQNE6"
         };
 
-        // 순위 가져오기 함수
-        window.loadLeaderboard = async () => {
-            const q = query(collection(db, "scores"), orderBy("time", "asc"), limit(30));
-            const querySnapshot = await getDocs(q);
-            const bodies = document.querySelectorAll('.leaderboard-body');
-            
-            let tableHTML = "";
-            let rank = 1;
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                tableHTML += `<tr><td>${rank++}</td><td>${data.name}</td><td>${data.time}s</td></tr>`;
-            });
+        // 3. 앱 초기화 및 DB 연결
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-            bodies.forEach(body => {
-                body.innerHTML = tableHTML || "<tr><td colspan='3'>기록이 없습니다.</td></tr>";
-            });
+        // 4. 점수 저장 함수 (window에 연결하여 퀴즈 코드에서 쓸 수 있게 함)
+        window.saveScore = async (name, time) => {
+            try {
+                // 'scores'라는 이름의 컬렉션(폴더)에 저장합니다.
+                await addDoc(collection(db, "scores"), {
+                    name: name,
+                    time: parseInt(time), // 숫자로 확실히 저장
+                    date: new Date()
+                });
+                console.log("Score saved successfully!");
+            } catch (e) { 
+                console.error("Error saving score: ", e); 
+                alert("기록 저장 중 오류가 발생했습니다.");
+            }
+        };
+
+        // 5. 순위 가져오기 함수
+        window.loadLeaderboard = async () => {
+            try {
+                // 시간(time) 기준으로 오름차순(작은 숫자가 위로) 정렬하여 30개 가져옴
+                const q = query(collection(db, "scores"), orderBy("time", "asc"), limit(30));
+                const querySnapshot = await getDocs(q);
+                const bodies = document.querySelectorAll('.leaderboard-body');
+                
+                let tableHTML = "";
+                let rank = 1;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    tableHTML += `<tr><td>${rank++}</td><td>${data.name}</td><td>${data.time}s</td></tr>`;
+                });
+
+                bodies.forEach(body => {
+                    body.innerHTML = tableHTML || "<tr><td colspan='3'>기록이 없습니다.</td></tr>";
+                });
+            } catch (e) {
+                console.error("Error loading leaderboard: ", e);
+            }
         };
     </script>
 
     <style>
         body { font-family: 'Malgun Gothic', sans-serif; background-color: #f1f8e9; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
         #game-container { width: 90%; max-width: 500px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }
-        
-        /* 헤더 스타일 */
-        .rank-icon { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; background: #fff; border: 2px solid #4caf50; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .rank-icon { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; background: #fff; border: 2px solid #4caf50; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 5; }
         .rank-icon:hover { background: #e8f5e9; transform: scale(1.1); }
-        
         h1 { color: #2e7d32; margin-top: 10px; font-size: 24px; }
         .header-info { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px; background: #f9f9f9; padding: 10px; border-radius: 10px; }
-
-        /* 입력 및 선택 */
         input, select { padding: 12px; width: 100%; box-sizing: border-box; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
-        .mode-selection { margin: 15px 0; text-align: left; }
-        
-        /* 버튼 */
         button { padding: 15px; border: none; border-radius: 10px; cursor: pointer; background: #4caf50; color: white; font-size: 16px; width: 100%; font-weight: bold; transition: 0.2s; }
         button:hover { background: #388e3c; }
         button:disabled { background: #ccc; }
-
-        /* 퀴즈 UI */
         .question { font-size: 18px; margin: 20px 0; line-height: 1.5; min-height: 80px; }
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         #penalty-msg { color: #d32f2f; font-weight: bold; height: 24px; margin-bottom: 10px; }
-
-        /* 순위표 테이블 */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         th, td { border: 1px solid #eee; padding: 10px; text-align: center; }
         th { background: #f1f8e9; color: #2e7d32; }
-
-        .hidden { display: none; }
-        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; border-radius: 20px; padding: 20px; box-sizing: border-box; overflow-y: auto; z-index: 10; }
+        .hidden { display: none !important; }
+        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; border-radius: 20px; padding: 20px; box-sizing: border-box; overflow-y: auto; z-index: 10; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
@@ -100,24 +101,21 @@
         <div class="rank-icon" onclick="showGlobalRank()">🏆</div>
         <h1>🌳 The Lorax Escape</h1>
         <p>닉네임을 입력하고 모드를 선택하세요!</p>
-        
         <input type="text" id="nickname-input" placeholder="Your Nickname">
-        
-        <div class="mode-selection">
-            <label><strong>문제 모드 선택 (Mode):</strong></label>
+        <div style="text-align:left; margin:10px 0;">
+            <label><strong>모드 선택 (Mode):</strong></label>
             <select id="language-mode">
                 <option value="EN">English Main (영어 위주)</option>
                 <option value="KO">Korean Main (한국어 위주)</option>
             </select>
         </div>
-        
         <button onclick="startGame()">게임 시작 (Start Game)</button>
     </div>
 
     <div id="rank-modal" class="modal hidden">
         <div style="display:flex; justify-content: space-between; align-items: center;">
             <h3>🏆 Global Top 30</h3>
-            <span style="cursor:pointer; font-weight:bold;" onclick="closeRank()">[닫기]</span>
+            <span style="cursor:pointer; font-weight:bold; color:red;" onclick="closeRank()">[닫기]</span>
         </div>
         <table>
             <thead><tr><th>Rank</th><th>Name</th><th>Time</th></tr></thead>
@@ -150,6 +148,7 @@
 </div>
 
 <script>
+    // 질문 데이터 (동일함)
     const questions = [
         { qEn: "What is the name of the town?", qKo: "마을의 이름은 무엇인가요?", options: ["Thneedville", "Treeville", "Once-ler Town", "Lorax City"], answer: "Thneedville" },
         { qEn: "Who 'speaks for the trees'?", qKo: "누가 '나무들을 대변'하나요?", options: ["The Lorax", "Ted", "The Once-ler", "Mr. O'Hare"], answer: "The Lorax" },
@@ -211,7 +210,6 @@
         const container = document.getElementById('options-container');
         container.innerHTML = "";
         
-        // 모드에 따라 텍스트 배치 변경
         if (mode === "EN") {
             document.getElementById('question-text').innerHTML = `<strong>${q.qEn}</strong><br><small style="color:gray;">${q.qKo}</small>`;
         } else {
@@ -254,8 +252,10 @@
         document.getElementById('result-screen').classList.remove('hidden');
         document.getElementById('final-time').innerText = seconds;
         
-        await window.saveScore(nickname, seconds);
-        await window.loadLeaderboard();
+        if (window.saveScore) {
+            await window.saveScore(nickname, seconds);
+            await window.loadLeaderboard();
+        }
     }
 </script>
 </body>
